@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proof Of Metal — Live Metal-Linked Markets</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Header that matches your generated banner -->
+  <header class="site-header" style="background-image:url('./assets/header.png');">
+    <div class="header-overlay"></div>
+
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Proof Of Metal Home">
+        <img class="brand-logo" src="./assets/logo.png" alt="Proof Of Metal logo" />
+        <div class="brand-text">
+          <div class="brand-title">PROOF OF METAL</div>
+          <div class="brand-tagline">On-chain transparency for precious metals</div>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="#charts">Charts</a>
+        <a href="#method">Method</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+
+    <!-- Mission section (based on your 3 reasons) -->
+    <section class="card mission">
+      <h1>Track tokenized metals + metal-linked digital assets, 24/7.</h1>
+      <p>
+        Crypto has liquidity and trust problems. Proof Of Metal tracks markets with transparent sources,
+        without narratives — and bridges the gap between digital tokens and real physical ownership.
+      </p>
+
+      <div class="pill-row">
+        <span class="pill">Bias-free tracking</span>
+        <span class="pill">Metal-backed focus</span>
+        <span class="pill">Generational wealth mindset</span>
+      </div>
+    </section>
+
+    <!-- Live charts -->
+    <section id="charts" class="card">
+      <div class="section-head">
+        <h2>Live Charts</h2>
+        <div class="muted" id="lastUpdated">Loading…</div>
+      </div>
+
+      <div class="grid-2">
+        <!-- TradingView charts (confirmed available) -->
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>PAXG (PAXGUSDT)</h3>
+            <span class="chip">TradingView</span>
+          </div>
+          <div class="tv-chart" id="tv_paxg"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>XAUUSDT (Perp)</h3>
+            <span class="chip">TradingView</span>
+          </div>
+          <div class="tv-chart" id="tv_xauusdt"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>XAGUSDT (Perp)</h3>
+            <span class="chip">TradingView</span>
+          </div>
+          <div class="tv-chart" id="tv_xagusdt"></div>
+        </article>
+
+        <!-- $GOLD: default to GOLDUSDT.P (TradingView has it, exchange-specific) -->
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>$GOLD</h3>
+            <span class="chip">TradingView</span>
+          </div>
+          <div class="tv-chart" id="tv_gold"></div>
+          <p class="tiny muted">
+            If you meant a specific $GOLD token (Solana/EVM), swap this to DexScreener below.
+          </p>
+        </article>
+
+        <!-- DexScreener embeds for AU79 + SLVr (paste your pair URLs) -->
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>AU79</h3>
+            <span class="chip">DexScreener</span>
+          </div>
+
+          <!-- Replace the src with your AU79 DexScreener PAIR URL -->
+          <iframe
+            class="dex-embed"
+            id="dex_au79"
+            title="AU79 DexScreener chart"
+            src=""
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            allow="clipboard-write"
+          ></iframe>
+
+          <div class="tiny muted">
+            Paste your AU79 DexScreener pair link in <code>app.js</code>.
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>SLVr</h3>
+            <span class="chip">DexScreener</span>
+          </div>
+
+          <!-- Replace the src with your SLVr DexScreener PAIR URL -->
+          <iframe
+            class="dex-embed"
+            id="dex_slvr"
+            title="SLVr DexScreener chart"
+            src=""
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            allow="clipboard-write"
+          ></iframe>
+
+          <div class="tiny muted">
+            Paste your SLVr DexScreener pair link in <code>app.js</code>.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Methodology -->
+    <section id="method" class="card">
+      <h2>Method</h2>
+      <ul class="list">
+        <li>Charts are embedded from transparent public chart sources (TradingView and DexScreener).</li>
+        <li>Where available, we prioritize liquid primary markets (e.g., major perp pairs for XAU/XAG).</li>
+        <li>Goal: make metal-linked digital markets easier to monitor without hype or narrative distortion.</li>
+      </ul>
+      <p class="tiny muted">
+        TradingView supports XAUUSDT.P and XAGUSDT.P perpetual charts and PAXGUSDT charts. :contentReference[oaicite:1]{index=1}
+      </p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p class="muted">Add a contact email or socials here when you’re ready.</p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span class="muted">© <span id="year"></span> Proof Of Metal</span>
+      <span class="muted">Not financial advice.</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
