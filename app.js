@@ -35,7 +35,7 @@ function mountTV(containerId, symbol){
     symbol,
     interval: "30",
     timezone: "Etc/UTC",
-    theme: "light",
+    theme: "dark",
     style: "1",
     locale: "en",
     enable_publishing: false,
