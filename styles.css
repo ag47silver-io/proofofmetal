@@ -183,6 +183,18 @@ p{line-height:1.55}
   text-decoration:none;
   box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
 }
+.footer{
+  margin-top:18px;
+  border-top:1px solid rgba(0,0,0,0.06);
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
 .footer-left{
   display:flex;
   gap:14px;
@@ -194,17 +206,7 @@ p{line-height:1.55}
   align-items:center;
 }
 
-.footer-link{
-  font-size:0.9rem;
-  color:var(--muted);
-  text-decoration:none;
-  border-bottom:1px dotted rgba(0,0,0,0.25);
-}
-
-.footer-link:hover{
-  color:var(--text);
-  border-bottom-color: var(--text);
-}
+/* Reddit icon button */
 .footer-icon-link{
   display:inline-flex;
   align-items:center;
@@ -224,18 +226,12 @@ p{line-height:1.55}
   fill: var(--muted);
 }
 
-.footer-icon-link:hover .footer-icon{
-  fill: var(--text);
-}
+.footer-icon-link:hover .footer-icon{ fill: var(--text); }
+.footer-icon-link:hover{ transform: translateY(-1px); }
 
-.footer-icon-link:hover{
-  transform: translateY(-1px);
-}
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:center;
+/* Mobile: keep it visible */
+@media (max-width: 600px){
+  .footer-inner{ flex-direction:row; }
 }
 
 .btn:hover{transform: translateY(-1px)}
