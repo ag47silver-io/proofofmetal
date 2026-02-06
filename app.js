@@ -22,10 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { container: "tv_kau", symbol: "KAUUSD" },
     { container: "tv_cgo", symbol: "CGOUSD" },
     { container: "tv_kag", symbol: "KAGUSD" },
-
-    // Meld Gold (GOLD$) — may require adjusting to the exact TradingView listing
-    { container: "tv_golds", symbol: "GOLD$USD" },
-  ];
+    { container: "tv_gold", symbol: "GOLDUSDT.P" },
 
   function loadTradingViewScript() {
     return new Promise((resolve, reject) => {
