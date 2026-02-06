@@ -1,29 +1,31 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+  // --- Page meta ---
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  const updated = document.getElementById("lastUpdated");
+  if (updated) updated.textContent = `Loaded: ${new Date().toLocaleString()}`;
+
+  // --- TradingView charts to mount ---
+  // If a chart is blank, swap symbol to the exact TradingView listing (EXCHANGE:SYMBOL)
   const TV_WIDGETS = [
-    // PAXG spot chart
     { container: "tv_paxg", symbol: "PAXGUSDT" },
 
-    // Metals perps
+    // Tokenized gold
+    { container: "tv_xaut", symbol: "XAUTUSD" },
+
+    // Spot proxies / perps (common TradingView symbols)
     { container: "tv_xauusdt", symbol: "BINANCE:XAUUSDT.P" },
     { container: "tv_xagusdt", symbol: "BINANCE:XAGUSDT.P" },
 
-    // $GOLD (still placeholder until we wire your token source)
-    { container: "tv_gold", symbol: "GOLDUSDT.P" },
-
-    // Added tickers
+    // Kinesis / Comtech
     { container: "tv_kau", symbol: "KAUUSD" },
     { container: "tv_cgo", symbol: "CGOUSD" },
     { container: "tv_kag", symbol: "KAGUSD" },
+
+    // Meld Gold (GOLD$) — may require adjusting to the exact TradingView listing
+    { container: "tv_golds", symbol: "GOLD$USD" },
   ];
-
-  function el(id) { return document.getElementById(id); }
-
-  function setMeta() {
-    const y = el("year");
-    const u = el("lastUpdated");
-    if (y) y.textContent = new Date().getFullYear();
-    if (u) u.textContent = `Loaded: ${new Date().toLocaleString()}`;
-  }
 
   function loadTradingViewScript() {
     return new Promise((resolve, reject) => {
@@ -38,32 +40,36 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function mountTV(containerId, symbol) {
-    const target = el(containerId);
+    const target = document.getElementById(containerId);
     if (!target) {
-      console.warn("Missing container:", containerId);
+      console.warn("Missing chart container:", containerId);
       return;
     }
 
-    new window.TradingView.widget({
-      autosize: true,
-      symbol: symbol,
-      interval: "30",
-      timezone: "Etc/UTC",
-      theme: "dark",      // darker charts on a light site
-      style: "1",
-      locale: "en",
-      enable_publishing: false,
-      hide_side_toolbar: false,
-      allow_symbol_change: true,
-      container_id: containerId,
-    });
+    try {
+      new window.TradingView.widget({
+        autosize: true,
+        symbol,
+        interval: "30",
+        timezone: "Etc/UTC",
+        theme: "light",     // professional, not too dark
+        style: "1",
+        locale: "en",
+        enable_publishing: false,
+        hide_side_toolbar: false,
+        allow_symbol_change: true,
+        container_id: containerId,
+      });
+    } catch (e) {
+      console.warn("TradingView mount failed:", symbol, e);
+    }
   }
 
-  setMeta();
-  await loadTradingViewScript();
-
-  TV_WIDGETS.forEach(({ container, symbol }) => {
-    try { mountTV(container, symbol); }
-    catch (e) { console.warn("TradingView mount failed:", symbol, e); }
-  });
+  loadTradingViewScript()
+    .then(() => {
+      TV_WIDGETS.forEach(({ container, symbol }) => mountTV(container, symbol));
+    })
+    .catch((e) => {
+      console.error("TradingView script failed to load:", e);
+    });
 });
