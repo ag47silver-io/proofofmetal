@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Proof Of Metal — Live Metal-Linked Markets</title>
+  <title>Proof Of Metal — Live Charts</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Header that matches your generated banner -->
-  <header class="site-header" style="background-image:url('./assets/proof-of-metal-header.png');">
+  <!-- Header image (keeps your banner look) -->
+  <header class="site-header" style="background-image:url('./assets/header.png');">
     <div class="header-overlay"></div>
 
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="Proof Of Metal Home">
-        <img class="brand-logo" src="./assets/proof-of-metal-logo.png" alt="Proof Of Metal logo" />
+      <a class="brand" href="./index.html" aria-label="Proof Of Metal Home">
+        <img class="brand-logo" src="./assets/logo.png" alt="Proof Of Metal logo" />
         <div class="brand-text">
           <div class="brand-title">PROOF OF METAL</div>
           <div class="brand-tagline">On-chain transparency for precious metals</div>
@@ -23,38 +23,30 @@
 
       <nav class="nav">
         <a href="#charts">Charts</a>
-        <a href="#method">Method</a>
-        <a href="#contact">Contact</a>
+        <a href="#about">Why</a>
       </nav>
     </div>
   </header>
 
-  <main id="top" class="wrap">
+  <main class="wrap">
 
-    <!-- Mission section (based on your 3 reasons) -->
-    <section class="card mission">
-      <h1>Track tokenized metals + metal-linked digital assets, 24/7.</h1>
-      <p>
-        Crypto has liquidity and trust problems. Proof Of Metal tracks markets with transparent sources,
-        without narratives — and bridges the gap between digital tokens and real physical ownership.
+    <section id="about" class="card">
+      <h1>Live charts for metal-linked digital assets.</h1>
+      <p class="muted">
+        Track tokenized metals and metal-linked markets with minimal narrative. The goal: make the space feel less like
+        “magic internet money” and more tied to real-world value.
       </p>
-
-      <div class="pill-row">
-        <span class="pill">Bias-free tracking</span>
-        <span class="pill">Metal-backed focus</span>
-        <span class="pill">Generational wealth mindset</span>
-      </div>
     </section>
 
-    <!-- Live charts -->
     <section id="charts" class="card">
       <div class="section-head">
         <h2>Live Charts</h2>
-        <div class="muted" id="lastUpdated">Loading…</div>
+        <div class="muted" id="lastUpdated">—</div>
       </div>
 
       <div class="grid-2">
-        <!-- TradingView charts (confirmed available) -->
+
+        <!-- PAXG -->
         <article class="chart-card">
           <div class="chart-head">
             <h3>PAXG (PAXGUSDT)</h3>
@@ -63,23 +55,25 @@
           <div class="tv-chart" id="tv_paxg"></div>
         </article>
 
+        <!-- XAUUSDT -->
         <article class="chart-card">
           <div class="chart-head">
-            <h3>XAUUSDT (Perp)</h3>
+            <h3>XAUUSDT</h3>
             <span class="chip">TradingView</span>
           </div>
           <div class="tv-chart" id="tv_xauusdt"></div>
         </article>
 
+        <!-- XAGUSDT -->
         <article class="chart-card">
           <div class="chart-head">
-            <h3>XAGUSDT (Perp)</h3>
+            <h3>XAGUSDT</h3>
             <span class="chip">TradingView</span>
           </div>
           <div class="tv-chart" id="tv_xagusdt"></div>
         </article>
 
-        <!-- $GOLD: default to GOLDUSDT.P (TradingView has it, exchange-specific) -->
+        <!-- $GOLD -->
         <article class="chart-card">
           <div class="chart-head">
             <h3>$GOLD</h3>
@@ -87,71 +81,47 @@
           </div>
           <div class="tv-chart" id="tv_gold"></div>
           <p class="tiny muted">
-            </p>
+            If your “$GOLD” is a specific token (Solana mint / ERC-20), tell me and I’ll swap this to the exact market.
+          </p>
         </article>
 
-        <!-- DexScreener embeds for AU79 + SLVr (paste your pair URLs) -->
-       <!-- AU79 -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>AU79</h3>
-    <span class="chip">DEX Live</span>
-  </div>
+        <!-- AU79 (CoinMarketCap widget + button to live chart page) -->
+        <article class="chart-card chart-card-wide">
+          <div class="chart-head">
+            <h3>AU79</h3>
+            <span class="chip">CoinMarketCap</span>
+          </div>
 
-  <div class="lw-wrap">
-    <div class="lw-chart" id="lw_au79"></div>
-    <div class="lw-actions">
-      <a class="dex-button" id="au79_link" href="#" target="_blank" rel="noopener">View on DexScreener →</a>
-      <span class="tiny muted" id="au79_note"></span>
-    </div>
-  </div>
-</article>
+          <div class="cmc-wrap">
+            <!-- CoinMarketCap official widget -->
+            <div
+              class="coinmarketcap-currency-widget"
+              data-currencyid="37580"
+              data-base="USD"
+              data-secondary=""
+              data-ticker="true"
+              data-rank="true"
+              data-marketcap="true"
+              data-volume="true"
+              data-statsticker="true"
+              data-stats="USD">
+            </div>
 
-<!-- SLVr -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>SLVr</h3>
-    <span class="chip">DEX Live</span>
-  </div>
+            <div class="cmc-actions">
+              <a class="btn" href="https://coinmarketcap.com/currencies/au79/" target="_blank" rel="noopener">
+                Open AU79 Live Chart →
+              </a>
+              <span class="tiny muted">
+                Note: CoinMarketCap’s full chart page can’t be embedded, so we embed their official widget + link out.
+              </span>
+            </div>
+          </div>
+        </article>
 
-  <div class="lw-wrap">
-    <div class="lw-chart" id="lw_slvr"></div>
-    <div class="lw-actions">
-      <a class="dex-button" id="slvr_link" href="#" target="_blank" rel="noopener">View on DexScreener →</a>
-      <span class="tiny muted" id="slvr_note"></span>
-    </div>
-  </div>
-</article>
-
-    <!-- Methodology -->
-    <section id="method" class="card">
-      <h2>Method</h2>
-      <ul class="list">
-        <li>Charts are embedded from transparent public chart sources (TradingView and DexScreener).</li>
-        <li>Where available, we prioritize liquid primary markets (e.g., major perp pairs for XAU/XAG).</li>
-        <li>Goal: make metal-linked digital markets easier to monitor without hype or narrative distortion.</li>
-      </ul>
-      <p class="tiny muted">
-        TradingView supports XAUUSDT.P and XAGUSDT.P perpetual charts and PAXGUSDT charts. :contentReference[oaicite:1]{index=1}
-      </p>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <p class="muted">Page created by Valdez Capital Holdings, LLC. https://www.reddit.com/user/ValdezCapitaHoldings/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button</p>
+      </div>
     </section>
 
   </main>
-  <section class="card">
-  <h2>How we define “Risk”</h2>
-  <ul class="list">
-    <li><b>Liquidity risk</b>: low liquidity increases slippage and manipulation risk.</li>
-    <li><b>Turnover risk</b>: high 24h volume relative to liquidity can still be unstable.</li>
-    <li><b>Redeemability</b>: “Backed” means an issuer claims redeemability/audits; “Unknown” means we haven’t verified or it’s purely market-driven.</li>
-    <li><b>Premium/discount</b>: measured vs a spot-gold proxy for quick context.</li>
-  </ul>
-</section>
 
   <footer class="footer">
     <div class="wrap footer-inner">
@@ -159,7 +129,10 @@
       <span class="muted">Not financial advice.</span>
     </div>
   </footer>
-  <script src="https://cdn.jsdelivr.net/npm/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+
+  <!-- CoinMarketCap widget script (official) -->
+  <script src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+
   <script src="app.js"></script>
 </body>
 </html>
