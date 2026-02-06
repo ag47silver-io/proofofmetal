@@ -6,6 +6,10 @@
   --line:#e2e8f0;      /* slate-200 */
   --chip:#f1f5f9;      /* slate-100 */
   --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  /* new */
+  --chartFrame: #0b1220;  /* deep navy/charcoal */
+  --chartBorder: rgba(15, 23, 42, 0.18);
+}
 }
 
 *{box-sizing:border-box}
@@ -131,10 +135,21 @@ p{line-height:1.55}
 .tv-chart{
   width:100%;
   height:380px;
-  border-radius:12px;
+  border-radius:14px;
   overflow:hidden;
+
+  /* dark-but-not-overpowering frame */
+  background: var(--chartFrame);
+  border: 1px solid var(--chartBorder);
+  box-shadow: 0 14px 35px rgba(2, 6, 23, 0.18);
+}
+
+/* optional: give the chart card a tiny contrast lift */
+.chart-card{
   border:1px solid var(--line);
   background:#fff;
+  border-radius:16px;
+  padding:12px;
 }
 
 .cmc-wrap{display:flex;flex-direction:column;gap:12px}
@@ -150,6 +165,13 @@ p{line-height:1.55}
   text-decoration:none;
   box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
 }
+.tv-chart{
+  padding: 6px; /* creates a subtle border mat */
+}
+.tv-chart > div, .tv-chart iframe{
+  border-radius:10px;
+}
+
 .btn:hover{transform: translateY(-1px)}
 
 .footer{margin-top:18px;border-top:1px solid rgba(0,0,0,0.06)}
