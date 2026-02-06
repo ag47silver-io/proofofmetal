@@ -181,6 +181,31 @@ p{color:var(--text);line-height:1.55}
 .dex-button:hover{
   background:rgba(214,177,90,0.25);
 }
+.lw-wrap{display:flex;flex-direction:column;gap:10px}
+.lw-chart{
+  height:380px;
+  border-radius:12px;
+  border:1px solid rgba(35,48,68,0.85);
+  background:#0b0f14;
+  overflow:hidden;
+}
+.lw-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:0.78rem;
+  border:1px solid rgba(35,48,68,0.9);
+  background:rgba(12,18,28,0.45);
+  color:var(--muted);
+}
+.badge.ok{border-color:rgba(52,211,153,0.35);background:rgba(52,211,153,0.10);color:#bff7df}
+.badge.warn{border-color:rgba(214,177,90,0.45);background:rgba(214,177,90,0.12);color:#ffe8b2}
+.badge.danger{border-color:rgba(251,113,133,0.45);background:rgba(251,113,133,0.12);color:#ffd1d8}
+
+.kv{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.kv span{color:var(--muted);font-size:0.86rem}
 
 .list{margin:0;padding-left:18px;color:var(--muted)}
 .list li{margin:8px 0}
