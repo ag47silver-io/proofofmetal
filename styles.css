@@ -240,4 +240,33 @@ p{line-height:1.55}
 
 .footer{margin-top:18px;border-top:1px solid rgba(0,0,0,0.06)}
 .footer-inner{display:flex;justify-content:space-between;gap:12px}
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
 
+/* Badge styles (light theme friendly) */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:0.78rem;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--muted);
+}
+
+.badge.ok{
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.10);
+  color: #065f46;
+}
+
+.badge.warn{
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.10);
+  color: #7c4a03;
+}
