@@ -59,3 +59,71 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(() => TV_WIDGETS.forEach(w => mount(w.container, w.symbol)))
     .catch(err => console.error("TradingView failed to load:", err));
 });
+function setHeat(elId, pct){
+  const el = document.getElementById(elId);
+  if (!el) return;
+
+  const DISCOUNT = -0.50;
+  const PREMIUM  =  0.50;
+
+  el.classList.remove("discount","neutral","premium","nodata");
+
+  if (pct <= DISCOUNT) {
+    el.classList.add("discount");
+    el.textContent = `HEAT: Discount (${fmtPct(pct)})`;
+  } else if (pct >= PREMIUM) {
+    el.classList.add("premium");
+    el.textContent = `HEAT: Premium (${fmtPct(pct)})`;
+  } else {
+    el.classList.add("neutral");
+    el.textContent = `HEAT: Near Spot (${fmtPct(pct)})`;
+  }
+}
+
+function setNoData(elId, msg){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.classList.remove("discount","neutral","premium","nodata");
+  el.classList.add("nodata");
+  el.textContent = `HEAT: ${msg}`;
+}
+// --- KAU premium vs Gold spot proxy (XAUUSDT) ---
+try {
+  const xau = await fetchJSON("https://api.binance.com/api/v3/ticker/price?symbol=XAUUSDT");
+  const spotGold = parseFloat(xau.price);
+
+  const kau = await fetchJSON("https://api.binance.com/api/v3/ticker/price?symbol=KAUUSDT");
+  const kauPx = parseFloat(kau.price);
+
+  const kauPrem = ((kauPx - spotGold) / spotGold) * 100;
+
+  const kauEl = document.getElementById("prem_kau");
+  if (kauEl) kauEl.textContent = `KAU Premium vs Spot: ${fmtPct(kauPrem)}`;
+
+  setHeat("heat_kau", kauPrem);
+} catch (e) {
+  const kauEl = document.getElementById("prem_kau");
+  if (kauEl) kauEl.textContent = "KAU Premium vs Spot: — (price source unavailable)";
+  setNoData("heat_kau", "No data");
+}
+
+
+// --- KAG premium vs Silver spot proxy (XAGUSDT) ---
+try {
+  const xag = await fetchJSON("https://api.binance.com/api/v3/ticker/price?symbol=XAGUSDT");
+  const spotSilver = parseFloat(xag.price);
+
+  const kag = await fetchJSON("https://api.binance.com/api/v3/ticker/price?symbol=KAGUSDT");
+  const kagPx = parseFloat(kag.price);
+
+  const kagPrem = ((kagPx - spotSilver) / spotSilver) * 100;
+
+  const kagEl = document.getElementById("prem_kag");
+  if (kagEl) kagEl.textContent = `KAG Premium vs Spot: ${fmtPct(kagPrem)}`;
+
+  setHeat("heat_kag", kagPrem);
+} catch (e) {
+  const kagEl = document.getElementById("prem_kag");
+  if (kagEl) kagEl.textContent = "KAG Premium vs Spot: — (price source unavailable)";
+  setNoData("heat_kag", "No data");
+}
