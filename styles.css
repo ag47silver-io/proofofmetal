@@ -485,3 +485,75 @@ p{line-height:1.55}
     margin-left:0;
   }
 }
+/* ---------- Theme tokens (light default) ---------- */
+:root {
+  color-scheme: light dark; /* helps form controls */
+  --bg: #ffffff;
+  --bg-2: #f6f7f9;
+  --text: #111827;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: rgba(17, 24, 39, 0.12);
+  --link: #0b5fff;
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* ---------- Dark theme overrides ---------- */
+html[data-theme="dark"] {
+  --bg: #0b0f14;
+  --bg-2: #0f172a;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --card: #0f172a;
+  --border: rgba(229, 231, 235, 0.14);
+  --link: #7aa2ff;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* ---------- Apply tokens ---------- */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { color: var(--link); }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* If you have “cards/sections” wrap content in, target them here */
+.section,
+.card,
+.widget,
+.embed,
+nav,
+header,
+footer {
+  background: transparent;
+  color: inherit;
+}
+
+/* A nice default “card” helper (optional) */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Toggle button ---------- */
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.theme-toggle:focus {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
