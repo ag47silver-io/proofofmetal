@@ -11,7 +11,95 @@
   --chartBorder: rgba(15, 23, 42, 0.18);
 }
 }
+/* =========================
+   THEME TOKENS
+   ========================= */
+:root{
+  color-scheme: light dark;
 
+  --bg: #ffffff;
+  --bg-2: #f6f7f9;
+  --text: #111827;
+  --muted: #6b7280;
+
+  --card: #ffffff;
+  --border: rgba(17, 24, 39, .12);
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
+
+  --link: #0b5fff;
+  --chip-bg: rgba(11, 95, 255, .10);
+  --chip-text: #0b5fff;
+}
+
+/* Dark theme overrides */
+html[data-theme="dark"]{
+  --bg: #0b0f14;
+  --bg-2: #0f172a;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+
+  --card: #0f172a;
+  --border: rgba(229, 231, 235, .14);
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+
+  --link: #7aa2ff;
+  --chip-bg: rgba(122, 162, 255, .15);
+  --chip-text: #c7d2fe;
+}
+
+/* =========================
+   APPLY TOKENS
+   ========================= */
+body{
+  background: var(--bg);
+  color: var(--text);
+}
+
+a{ color: var(--link); }
+
+.muted{ color: var(--muted); }
+
+/* Your layout uses cards heavily */
+.card,
+.chart-card,
+.explain-card,
+.consider-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* If you have a wrapper area behind cards */
+.wrap{
+  background: transparent;
+}
+
+/* Chips (you use .chip) */
+.chip{
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  border: 1px solid var(--border);
+}
+
+/* Optional: tone down header overlay in dark */
+html[data-theme="dark"] .header-overlay{
+  opacity: .65; /* tweak if needed */
+}
+
+/* Toggle button */
+.theme-toggle{
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.theme-toggle:focus{
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 
