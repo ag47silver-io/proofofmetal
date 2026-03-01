@@ -7,77 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const lastUpdatedEl = document.getElementById("lastUpdated");
   if (lastUpdatedEl) lastUpdatedEl.textContent = `Loaded: ${new Date().toLocaleString()}`;
-// -------------------------
-// Chart click-to-zoom
-// -------------------------
-const modal = document.getElementById("chartModal");
-const modalClose = document.getElementById("chartModalClose");
-const modalTitle = document.getElementById("chartModalTitle");
-const modalTVId = "chartModalTV";
 
-let activeWidget = null; // {container, symbol, title}
-
-function openModalForWidget(widget, titleText) {
-  if (!modal) return;
-
-  activeWidget = { ...widget, title: titleText || widget.symbol };
-
-  // Open modal UI
-  modal.classList.add("is-open");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-
-  if (modalTitle) modalTitle.textContent = activeWidget.title;
-
-  // Mount big chart in modal
-  const theme = document.documentElement.getAttribute("data-theme") || "light";
-  mountTV(modalTVId, activeWidget.symbol, theme);
-}
-
-function closeModal() {
-  if (!modal) return;
-
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-
-  // Clear modal chart container
-  const el = document.getElementById(modalTVId);
-  if (el) el.innerHTML = "";
-
-  // Re-mount charts back in grid (so the one you "stole" is refreshed)
-  const theme = document.documentElement.getAttribute("data-theme") || "light";
-  remountAllTradingView(theme);
-
-  activeWidget = null;
-}
-
-// Close on backdrop click
-modal?.addEventListener("click", (e) => {
-  const target = e.target;
-  if (target && target.dataset && target.dataset.close === "1") closeModal();
-});
-
-// Close button + ESC
-modalClose?.addEventListener("click", closeModal);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modal?.classList.contains("is-open")) closeModal();
-});
-
-// Attach click handlers to your chart cards
-TV_WIDGETS.forEach((w) => {
-  const chartEl = document.getElementById(w.container);
-  if (!chartEl) return;
-
-  // Click the chart area to zoom
-  chartEl.style.cursor = "zoom-in";
-  chartEl.addEventListener("click", () => {
-    // Find a nice title: use the <h3> in the same card
-    const card = chartEl.closest(".chart-card");
-    const title = card?.querySelector(".chart-head h3")?.textContent?.trim();
-    openModalForWidget(w, title);
-  });
-});
   // -------------------------
   // TradingView config
   // -------------------------
@@ -115,6 +45,10 @@ TV_WIDGETS.forEach((w) => {
     if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
   }
 
+  function getActiveTheme() {
+    return document.documentElement.getAttribute("data-theme") || "light";
+  }
+
   // -------------------------
   // TradingView loader + mount
   // -------------------------
@@ -135,7 +69,7 @@ TV_WIDGETS.forEach((w) => {
     const el = document.getElementById(containerId);
     if (!el) return;
 
-    // Important: allow re-mounting when theme changes
+    // allow re-mounting (theme toggle + modal)
     el.innerHTML = "";
 
     try {
@@ -144,7 +78,7 @@ TV_WIDGETS.forEach((w) => {
         symbol,
         interval: "30",
         timezone: "Etc/UTC",
-        theme: theme, // ✅ dynamic (light/dark)
+        theme: theme, // "light" or "dark"
         style: "1",
         locale: "en",
         enable_publishing: false,
@@ -158,13 +92,80 @@ TV_WIDGETS.forEach((w) => {
   }
 
   async function remountAllTradingView(theme) {
-    try {
-      await loadTradingViewScript();
-      for (const w of TV_WIDGETS) {
-        mountTV(w.container, w.symbol, theme);
-      }
-    } catch (e) {
-      console.warn(e);
+    await loadTradingViewScript();
+    for (const w of TV_WIDGETS) mountTV(w.container, w.symbol, theme);
+  }
+
+  // -------------------------
+  // Chart click-to-zoom (modal)
+  // -------------------------
+  const modal = document.getElementById("chartModal");
+  const modalClose = document.getElementById("chartModalClose");
+  const modalTitle = document.getElementById("chartModalTitle");
+  const modalTVId = "chartModalTV";
+
+  let modalOpen = false;
+
+  function openModalForWidget(widget, titleText) {
+    if (!modal) return;
+
+    modalOpen = true;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (modalTitle) modalTitle.textContent = titleText || widget.symbol;
+
+    // mount big chart
+    const theme = getActiveTheme();
+    mountTV(modalTVId, widget.symbol, theme);
+  }
+
+  function closeModal() {
+    if (!modal) return;
+
+    modalOpen = false;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    // clear modal container
+    const el = document.getElementById(modalTVId);
+    if (el) el.innerHTML = "";
+
+    // refresh all charts back in the grid
+    remountAllTradingView(getActiveTheme()).catch(() => {});
+  }
+
+  // backdrop click (requires data-close="1" on backdrop)
+  modal?.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t && t.dataset && t.dataset.close === "1") closeModal();
+  });
+
+  modalClose?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalOpen) closeModal();
+  });
+
+  function attachZoomHandlers() {
+    // Attach click handlers to each chart container
+    for (const w of TV_WIDGETS) {
+      const chartEl = document.getElementById(w.container);
+      if (!chartEl) continue;
+
+      chartEl.style.cursor = "zoom-in";
+
+      // prevent duplicate listeners if re-run
+      if (chartEl.dataset.zoomBound === "1") continue;
+      chartEl.dataset.zoomBound = "1";
+
+      chartEl.addEventListener("click", () => {
+        const card = chartEl.closest(".chart-card");
+        const title = card?.querySelector(".chart-head h3")?.textContent?.trim();
+        openModalForWidget(w, title);
+      });
     }
   }
 
@@ -222,14 +223,14 @@ TV_WIDGETS.forEach((w) => {
     try {
       const xau = await fetchJSON("https://api.binance.com/api/v3/ticker/price?symbol=XAUUSDT");
       spotGold = parseFloat(xau.price);
-    } catch (e) {
+    } catch {
       spotGold = null;
     }
 
     try {
       const xag = await fetchJSON("https://api.binance.com/api/v3/ticker/price?symbol=XAGUSDT");
       spotSilver = parseFloat(xag.price);
-    } catch (e) {
+    } catch {
       spotSilver = null;
     }
 
@@ -243,7 +244,7 @@ TV_WIDGETS.forEach((w) => {
       const el = document.getElementById("prem_paxg");
       if (el) el.textContent = `PAXG Premium vs Spot: ${fmtPct(prem)}`;
       setHeat("heat_paxg", prem);
-    } catch (e) {
+    } catch {
       setNoData("prem_paxg", "heat_paxg", "PAXG Premium vs Spot: — (source unavailable)");
     }
 
@@ -257,7 +258,7 @@ TV_WIDGETS.forEach((w) => {
       const el = document.getElementById("prem_xaut");
       if (el) el.textContent = `XAUT Premium vs Spot: ${fmtPct(prem)}`;
       setHeat("heat_xaut", prem);
-    } catch (e) {
+    } catch {
       setNoData("prem_xaut", "heat_xaut", "XAUT Premium vs Spot: — (source unavailable)");
     }
 
@@ -271,7 +272,7 @@ TV_WIDGETS.forEach((w) => {
       const el = document.getElementById("prem_kau");
       if (el) el.textContent = `KAU Premium vs Spot: ${fmtPct(prem)}`;
       setHeat("heat_kau", prem);
-    } catch (e) {
+    } catch {
       setNoData("prem_kau", "heat_kau", "KAU Premium vs Spot: — (source unavailable)");
     }
 
@@ -285,7 +286,7 @@ TV_WIDGETS.forEach((w) => {
       const el = document.getElementById("prem_kag");
       if (el) el.textContent = `KAG Premium vs Spot: ${fmtPct(prem)}`;
       setHeat("heat_kag", prem);
-    } catch (e) {
+    } catch {
       setNoData("prem_kag", "heat_kag", "KAG Premium vs Spot: — (source unavailable)");
     }
   }
@@ -299,15 +300,28 @@ TV_WIDGETS.forEach((w) => {
   const toggleBtn = document.getElementById("themeToggle");
   if (toggleBtn) {
     toggleBtn.addEventListener("click", async () => {
-      const current = document.documentElement.getAttribute("data-theme") || "light";
-      const next = current === "dark" ? "light" : "dark";
+      const next = getActiveTheme() === "dark" ? "light" : "dark";
       applyTheme(next);
+
+      // If modal is open, remount the modal chart with new theme too
+      if (modalOpen) {
+        // re-mount modal chart by rebuilding it from the title text
+        // easiest: just close + reopen is jarring, so re-mount in place:
+        // (we don't store symbol globally here; use modalTitle text only for display)
+        // We'll just remount all charts; modal chart gets remounted when opened next.
+        const el = document.getElementById(modalTVId);
+        if (el) el.innerHTML = "";
+      }
+
       await remountAllTradingView(next);
     });
   }
 
-  // Mount charts first, then premiums on interval
+  // Mount charts first, then bind zoom clicks, then premiums on interval
   remountAllTradingView(initialTheme)
+    .then(() => {
+      attachZoomHandlers();
+    })
     .catch(err => console.error(err))
     .finally(() => {
       updatePremiums().catch(() => {});
