@@ -7,7 +7,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const lastUpdatedEl = document.getElementById("lastUpdated");
   if (lastUpdatedEl) lastUpdatedEl.textContent = `Loaded: ${new Date().toLocaleString()}`;
+// -------------------------
+// Chart click-to-zoom
+// -------------------------
+const modal = document.getElementById("chartModal");
+const modalClose = document.getElementById("chartModalClose");
+const modalTitle = document.getElementById("chartModalTitle");
+const modalTVId = "chartModalTV";
 
+let activeWidget = null; // {container, symbol, title}
+
+function openModalForWidget(widget, titleText) {
+  if (!modal) return;
+
+  activeWidget = { ...widget, title: titleText || widget.symbol };
+
+  // Open modal UI
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  if (modalTitle) modalTitle.textContent = activeWidget.title;
+
+  // Mount big chart in modal
+  const theme = document.documentElement.getAttribute("data-theme") || "light";
+  mountTV(modalTVId, activeWidget.symbol, theme);
+}
+
+function closeModal() {
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  // Clear modal chart container
+  const el = document.getElementById(modalTVId);
+  if (el) el.innerHTML = "";
+
+  // Re-mount charts back in grid (so the one you "stole" is refreshed)
+  const theme = document.documentElement.getAttribute("data-theme") || "light";
+  remountAllTradingView(theme);
+
+  activeWidget = null;
+}
+
+// Close on backdrop click
+modal?.addEventListener("click", (e) => {
+  const target = e.target;
+  if (target && target.dataset && target.dataset.close === "1") closeModal();
+});
+
+// Close button + ESC
+modalClose?.addEventListener("click", closeModal);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal?.classList.contains("is-open")) closeModal();
+});
+
+// Attach click handlers to your chart cards
+TV_WIDGETS.forEach((w) => {
+  const chartEl = document.getElementById(w.container);
+  if (!chartEl) return;
+
+  // Click the chart area to zoom
+  chartEl.style.cursor = "zoom-in";
+  chartEl.addEventListener("click", () => {
+    // Find a nice title: use the <h3> in the same card
+    const card = chartEl.closest(".chart-card");
+    const title = card?.querySelector(".chart-head h3")?.textContent?.trim();
+    openModalForWidget(w, title);
+  });
+});
   // -------------------------
   // TradingView config
   // -------------------------
