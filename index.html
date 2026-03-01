@@ -578,5 +578,20 @@
 
   <!-- Site JS -->
   <script src="./app.js"></script>
+  <!-- Chart Zoom Modal -->
+<div id="chartModal" class="chart-modal" aria-hidden="true">
+  <div class="chart-modal__backdrop" data-close="1"></div>
+
+  <div class="chart-modal__panel" role="dialog" aria-modal="true" aria-label="Expanded chart">
+    <button class="chart-modal__close" id="chartModalClose" type="button" aria-label="Close expanded chart">
+      ✕
+    </button>
+
+    <div class="chart-modal__title" id="chartModalTitle">Chart</div>
+    <div class="chart-modal__body">
+      <div id="chartModalTV" class="chart-modal__tv"></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
