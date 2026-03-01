@@ -21,7 +21,34 @@ document.addEventListener("DOMContentLoaded", () => {
     { container: "tv_kag",    symbol: "KAGUSD" },               // may need exact TradingView listing
     { container: "tv_gold",   symbol: "GOLDUSDT.P" }            // placeholder proxy
   ];
+// -------------------------
+// Theme (light/dark)
+// -------------------------
+const THEME_KEY = "pom_theme";
 
+function getPreferredTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem(THEME_KEY, theme);
+
+  // Update icon (optional)
+  const icon = document.getElementById("themeIcon");
+  if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  const next = current === "dark" ? "light" : "dark";
+  applyTheme(next);
+  remountAllTradingView(next); // keep charts consistent
+}
   function loadTradingViewScript() {
     return new Promise((resolve, reject) => {
       if (window.TradingView && window.TradingView.widget) return resolve();
