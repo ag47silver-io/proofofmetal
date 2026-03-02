@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const el = document.getElementById(containerId);
     if (!el) return;
 
-    // allow re-mounting (theme toggle + modal)
+    // Allow re-mounting (theme toggle + modal)
     el.innerHTML = "";
 
     try {
@@ -105,39 +105,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTVId = "chartModalTV";
 
   let modalOpen = false;
+  let activeModalSymbol = null;
+  let activeModalTitle = null;
 
   function openModalForWidget(widget, titleText) {
     if (!modal) return;
 
     modalOpen = true;
+    activeModalSymbol = widget.symbol;
+    activeModalTitle = titleText || widget.symbol;
+
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
-    if (modalTitle) modalTitle.textContent = titleText || widget.symbol;
+    if (modalTitle) modalTitle.textContent = activeModalTitle;
 
-    // mount big chart
-    const theme = getActiveTheme();
-    mountTV(modalTVId, widget.symbol, theme);
+    // Ensure script is loaded before mounting in modal
+    loadTradingViewScript()
+      .then(() => {
+        mountTV(modalTVId, activeModalSymbol, getActiveTheme());
+      })
+      .catch((e) => console.warn(e));
   }
 
   function closeModal() {
     if (!modal) return;
 
     modalOpen = false;
+    activeModalSymbol = null;
+    activeModalTitle = null;
+
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
 
-    // clear modal container
+    // Clear modal container
     const el = document.getElementById(modalTVId);
     if (el) el.innerHTML = "";
 
-    // refresh all charts back in the grid
+    // Refresh all charts back in the grid
     remountAllTradingView(getActiveTheme()).catch(() => {});
   }
 
-  // backdrop click (requires data-close="1" on backdrop)
+  // Backdrop click (requires data-close="1")
   modal?.addEventListener("click", (e) => {
     const t = e.target;
     if (t && t.dataset && t.dataset.close === "1") closeModal();
@@ -150,14 +161,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function attachZoomHandlers() {
-    // Attach click handlers to each chart container
     for (const w of TV_WIDGETS) {
       const chartEl = document.getElementById(w.container);
       if (!chartEl) continue;
 
       chartEl.style.cursor = "zoom-in";
-
-      // prevent duplicate listeners if re-run
       if (chartEl.dataset.zoomBound === "1") continue;
       chartEl.dataset.zoomBound = "1";
 
@@ -167,6 +175,20 @@ document.addEventListener("DOMContentLoaded", () => {
         openModalForWidget(w, title);
       });
     }
+  }
+
+  // Helper: remount modal chart when theme changes
+  function remountModalIfOpen() {
+    if (!modalOpen || !activeModalSymbol) return;
+
+    const el = document.getElementById(modalTVId);
+    if (el) el.innerHTML = "";
+
+    loadTradingViewScript()
+      .then(() => {
+        mountTV(modalTVId, activeModalSymbol, getActiveTheme());
+      })
+      .catch((e) => console.warn(e));
   }
 
   // -------------------------
@@ -303,25 +325,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const next = getActiveTheme() === "dark" ? "light" : "dark";
       applyTheme(next);
 
-      // If modal is open, remount the modal chart with new theme too
-      if (modalOpen) {
-        // re-mount modal chart by rebuilding it from the title text
-        // easiest: just close + reopen is jarring, so re-mount in place:
-        // (we don't store symbol globally here; use modalTitle text only for display)
-        // We'll just remount all charts; modal chart gets remounted when opened next.
-        const el = document.getElementById(modalTVId);
-        if (el) el.innerHTML = "";
-      }
-
+      // Remount main charts
       await remountAllTradingView(next);
+
+      // Remount modal chart (if open) so it matches theme
+      remountModalIfOpen();
     });
   }
 
-  // Mount charts first, then bind zoom clicks, then premiums on interval
   remountAllTradingView(initialTheme)
-    .then(() => {
-      attachZoomHandlers();
-    })
+    .then(() => attachZoomHandlers())
     .catch(err => console.error(err))
     .finally(() => {
       updatePremiums().catch(() => {});
