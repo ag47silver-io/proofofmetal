@@ -33,6 +33,7 @@ Monitor holdings like an inventory, not just a price
 Support long-term and generational planning, including family trust use cases
 
 Core Principle
+-A production of Valdez Capital Holdings, LLC.
 
 Crypto becomes more trustworthy when it’s tied to something real—
 something you can possess, store, and verify.
