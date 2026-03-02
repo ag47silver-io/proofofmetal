@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- Header image -->
+  <!-- Header image (branding only) -->
   <header class="site-header" style="background-image:url('./assets/proof-of-metal-header.png');">
     <div class="header-overlay"></div>
 
@@ -20,26 +20,23 @@
           <div class="brand-tagline">On-chain transparency for precious metals</div>
         </div>
       </a>
-
-        <button id="themeToggle" class="theme-toggle" type="button">
-  <span id="themeLabel">Light/Dark Mode</span>
-</button>
-      </nav>
     </div>
   </header>
-<!-- Toolbar Navigation (below header) -->
-<div class="toolbar">
-  <div class="toolbar-inner">
-    <a class="toolbar-link" href="#charts">Live Charts</a>
-    <a class="toolbar-link" href="#cmc">Market Widgets</a>
-    <a class="toolbar-link" href="#explain">Explanations</a>
-    <a class="toolbar-link" href="#considerations">Considerations</a>
 
-    <button id="themeToggle" class="toolbar-toggle" type="button">
-      <span id="themeLabel">Dark Mode</span>
-    </button>
+  <!-- Toolbar Navigation (below header) -->
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <a class="toolbar-link" href="#charts">Live Charts</a>
+      <a class="toolbar-link" href="#cmc">Market Widgets</a>
+      <a class="toolbar-link" href="#explain">Explanations</a>
+      <a class="toolbar-link" href="#considerations">Considerations</a>
+
+      <button id="themeToggle" class="toolbar-toggle" type="button" aria-label="Toggle theme">
+        <span id="themeLabel">Dark Mode</span>
+      </button>
+    </div>
   </div>
-</div>
+
   <main class="wrap">
 
     <!-- About -->
@@ -66,195 +63,245 @@
       </p>
 
       <div class="grid-2">
+
         <!-- PAXG -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>PAXG (PAXGUSDT)</h3>
-    <span class="chip">TradingView</span>
-  </div>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>PAXG (PAXGUSDT)</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <!-- STATUS ROW -->
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Yes (claimed)</span>
-    <span class="status-pill redeem">Redeemable: Yes (verify)</span>
-    <span class="status-pill net">Network: ERC-20</span>
-    <span class="status-pill min">Min Redemption: Varies</span>
-    <a class="status-link" href="https://paxos.com/paxgold/" target="_blank" rel="noopener">
-      Audit / Docs
-    </a>
-  </div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Yes (claimed)</span>
+            <span class="status-pill redeem">Redeemable: Yes (verify)</span>
+            <span class="status-pill net">Network: ERC-20</span>
+            <span class="status-pill min">Min Redemption: Varies</span>
+            <a class="status-link" href="https://paxos.com/paxgold/" target="_blank" rel="noopener">Audit / Docs</a>
+          </div>
 
-  <div class="tv-chart" id="tv_paxg"></div>
+          <div class="tv-chart" id="tv_paxg"></div>
 
-  <!-- PREMIUM DISPLAY -->
-  <div class="premium-box" id="prem_paxg">Premium vs Spot: —</div>
+          <div class="premium-box" id="prem_paxg">Premium vs Spot: —</div>
 
-  <!-- HEAT INDICATOR -->
-  <div class="heat-row">
-    <span class="heat-badge neutral" id="heat_paxg">HEAT: —</span>
-  </div>
-</article>
-      
-      <!-- XAUT -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>XAUT (Tether Gold)</h3>
-    <span class="chip">TradingView</span>
-  </div>
+          <div class="heat-row">
+            <span class="heat-badge neutral" id="heat_paxg">HEAT: —</span>
+          </div>
+        </article>
 
-  <!-- STATUS ROW -->
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Yes (claimed)</span>
-    <span class="status-pill redeem">Redeemable: Yes (verify)</span>
-    <span class="status-pill net">Network: ERC-20</span>
-    <span class="status-pill min">Min Redemption: Varies</span>
-    <a class="status-link" href="https://tether.to/en/gold/" target="_blank" rel="noopener">
-      Audit / Docs
-    </a>
-  </div>
+        <!-- XAUT -->
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>XAUT (Tether Gold)</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <div class="tv-chart" id="tv_xaut"></div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Yes (claimed)</span>
+            <span class="status-pill redeem">Redeemable: Yes (verify)</span>
+            <span class="status-pill net">Network: ERC-20</span>
+            <span class="status-pill min">Min Redemption: Varies</span>
+            <a class="status-link" href="https://tether.to/en/gold/" target="_blank" rel="noopener">Audit / Docs</a>
+          </div>
 
-  <!-- PREMIUM DISPLAY -->
-  <div class="premium-box" id="prem_xaut">Premium vs Spot: —</div>
+          <div class="tv-chart" id="tv_xaut"></div>
 
-  <!-- HEAT INDICATOR -->
-  <div class="heat-row">
-    <span class="heat-badge neutral" id="heat_xaut">HEAT: —</span>
-  </div>
-</article>
+          <div class="premium-box" id="prem_xaut">Premium vs Spot: —</div>
+
+          <div class="heat-row">
+            <span class="heat-badge neutral" id="heat_xaut">HEAT: —</span>
+          </div>
+        </article>
 
         <!-- XAUUSDT -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>XAUUSDT</h3>
-    <span class="chip">TradingView</span>
-  </div>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>XAUUSDT</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Spot proxy</span>
-    <span class="status-pill redeem">Redeemable: N/A</span>
-    <span class="status-pill net">Venue: Binance Perp</span>
-    <span class="status-pill min">Min Redemption: N/A</span>
-    <a class="status-link" href="https://www.tradingview.com/" target="_blank" rel="noopener">Source</a>
-  </div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Spot proxy</span>
+            <span class="status-pill redeem">Redeemable: N/A</span>
+            <span class="status-pill net">Venue: Binance Perp</span>
+            <span class="status-pill min">Min Redemption: N/A</span>
+            <a class="status-link" href="https://www.tradingview.com/" target="_blank" rel="noopener">Source</a>
+          </div>
 
-  <div class="tv-chart" id="tv_xauusdt"></div>
-</article>
+          <div class="tv-chart" id="tv_xauusdt"></div>
+        </article>
 
         <!-- XAGUSDT -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>XAGUSDT</h3>
-    <span class="chip">TradingView</span>
-  </div>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>XAGUSDT</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Spot proxy</span>
-    <span class="status-pill redeem">Redeemable: N/A</span>
-    <span class="status-pill net">Venue: Binance Perp</span>
-    <span class="status-pill min">Min Redemption: N/A</span>
-    <a class="status-link" href="https://www.tradingview.com/" target="_blank" rel="noopener">Source</a>
-  </div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Spot proxy</span>
+            <span class="status-pill redeem">Redeemable: N/A</span>
+            <span class="status-pill net">Venue: Binance Perp</span>
+            <span class="status-pill min">Min Redemption: N/A</span>
+            <a class="status-link" href="https://www.tradingview.com/" target="_blank" rel="noopener">Source</a>
+          </div>
 
-  <div class="tv-chart" id="tv_xagusdt"></div>
-</article>
+          <div class="tv-chart" id="tv_xagusdt"></div>
+        </article>
+
         <!-- KAU -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>KAU (Kinesis Gold)</h3>
-    <span class="chip">TradingView</span>
-  </div>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>KAU (Kinesis Gold)</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <!-- STATUS ROW (keep yours if already added) -->
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Claimed</span>
-    <span class="status-pill redeem">Redeemable: Verify</span>
-    <span class="status-pill net">Network: Kinesis</span>
-    <span class="status-pill min">Min Redemption: Verify</span>
-    <a class="status-link" href="https://kinesis.money/" target="_blank" rel="noopener">Audit / Docs</a>
-  </div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Claimed</span>
+            <span class="status-pill redeem">Redeemable: Verify</span>
+            <span class="status-pill net">Network: Kinesis</span>
+            <span class="status-pill min">Min Redemption: Verify</span>
+            <a class="status-link" href="https://kinesis.money/" target="_blank" rel="noopener">Audit / Docs</a>
+          </div>
 
-  <div class="tv-chart" id="tv_kau"></div>
+          <div class="tv-chart" id="tv_kau"></div>
 
-  <!-- PREMIUM DISPLAY -->
-  <div class="premium-box" id="prem_kau">KAU Premium vs Spot: —</div>
+          <div class="premium-box" id="prem_kau">KAU Premium vs Spot: —</div>
 
-  <!-- HEAT INDICATOR -->
-  <div class="heat-row">
-    <span class="heat-badge neutral" id="heat_kau">HEAT: —</span>
-  </div>
-</article>
+          <div class="heat-row">
+            <span class="heat-badge neutral" id="heat_kau">HEAT: —</span>
+          </div>
+        </article>
+
         <!-- CGO -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>CGO (Comtech Gold)</h3>
-    <span class="chip">TradingView</span>
-  </div>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>CGO (Comtech Gold)</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Claimed</span>
-    <span class="status-pill redeem">Redeemable: Verify</span>
-    <span class="status-pill net">Network: —</span>
-    <span class="status-pill min">Min Redemption: Verify</span>
-    <a class="status-link" href="https://comtechgold.com/" target="_blank" rel="noopener">Audit / Docs</a>
-  </div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Claimed</span>
+            <span class="status-pill redeem">Redeemable: Verify</span>
+            <span class="status-pill net">Network: —</span>
+            <span class="status-pill min">Min Redemption: Verify</span>
+            <a class="status-link" href="https://comtechgold.com/" target="_blank" rel="noopener">Audit / Docs</a>
+          </div>
 
-  <div class="tv-chart" id="tv_cgo"></div>
-</article>
+          <div class="tv-chart" id="tv_cgo"></div>
+        </article>
+
         <!-- KAG -->
- <article class="chart-card">
-  <div class="chart-head">
-    <h3>KAG (Kinesis Silver)</h3>
-    <span class="chip">TradingView</span>
-  </div>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>KAG (Kinesis Silver)</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <!-- STATUS ROW (keep yours if already added) -->
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Claimed</span>
-    <span class="status-pill redeem">Redeemable: Verify</span>
-    <span class="status-pill net">Network: Kinesis</span>
-    <span class="status-pill min">Min Redemption: ~200 oz (verify)</span>
-    <a class="status-link" href="https://kinesis.money/" target="_blank" rel="noopener">Audit / Docs</a>
-  </div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Claimed</span>
+            <span class="status-pill redeem">Redeemable: Verify</span>
+            <span class="status-pill net">Network: Kinesis</span>
+            <span class="status-pill min">Min Redemption: ~200 oz (verify)</span>
+            <a class="status-link" href="https://kinesis.money/" target="_blank" rel="noopener">Audit / Docs</a>
+          </div>
 
-  <div class="tv-chart" id="tv_kag"></div>
+          <div class="tv-chart" id="tv_kag"></div>
 
-  <!-- PREMIUM DISPLAY -->
-  <div class="premium-box" id="prem_kag">KAG Premium vs Spot: —</div>
+          <div class="premium-box" id="prem_kag">KAG Premium vs Spot: —</div>
 
-  <!-- HEAT INDICATOR -->
-  <div class="heat-row">
-    <span class="heat-badge neutral" id="heat_kag">HEAT: —</span>
-  </div>
-</article>
-       <!-- $GOLD -->
-<article class="chart-card">
-  <div class="chart-head">
-    <h3>$GOLD (Tokenized Gold)</h3>
-    <span class="chip">TradingView</span>
-  </div>
+          <div class="heat-row">
+            <span class="heat-badge neutral" id="heat_kag">HEAT: —</span>
+          </div>
+        </article>
 
-  <div class="status-row">
-    <span class="status-pill backed">Backed: Unknown</span>
-    <span class="status-pill redeem">Redeemable: Unknown</span>
-    <span class="status-pill net">Network: Solana / ERC-20</span>
-    <span class="status-pill min">Min Redemption: Unknown</span>
-    <a class="status-link" href="#" target="_blank" rel="noopener">Contract / Docs</a>
-  </div>
+        <!-- $GOLD -->
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>$GOLD (Tokenized Gold)</h3>
+            <span class="chip">TradingView</span>
+          </div>
 
-  <div class="tv-chart" id="tv_gold"></div>
+          <div class="status-row">
+            <span class="status-pill backed">Backed: Unknown</span>
+            <span class="status-pill redeem">Redeemable: Unknown</span>
+            <span class="status-pill net">Network: Solana / ERC-20</span>
+            <span class="status-pill min">Min Redemption: Unknown</span>
+            <a class="status-link" href="#" target="_blank" rel="noopener">Contract / Docs</a>
+          </div>
 
-  <p class="tiny muted">
-    “$GOLD” refers to a specific token deployed on Solana and ERC-20 rails.
-    Verify contract addresses and backing claims before relying on price data.
-  </p>
-</article>
+          <div class="tv-chart" id="tv_gold"></div>
 
+          <p class="tiny muted">
+            “$GOLD” refers to a specific token deployed on Solana and ERC-20 rails.
+            Verify contract addresses and backing claims before relying on price data.
+          </p>
+        </article>
 
-      <p class="tiny muted">
+      </div><!-- /.grid-2 -->
+    </section><!-- /#charts -->
+
+    <!-- =========================
+         WHY PROOF OF METAL EXISTS (after charts)
+         ========================= -->
+    <section id="why" class="card">
+      <div class="section-head">
+        <h2>🪙 Why Proof Of Metal Exists</h2>
+        <div class="muted">A production of Valdez Capital Holdings, LLC.</div>
+      </div>
+
+      <p class="muted">Digital markets move quickly. Transparency does not always keep pace.</p>
+      <p class="muted">
+        Proof Of Metal is built to provide clarity, observable data, and real-world grounding
+        for assets linked to physical precious metals.
       </p>
-    </section> <!-- ✅ CLOSE charts -->
+
+      <div class="why-grid">
+        <article class="why-card">
+          <h3>1) Market Structure Requires Discipline</h3>
+          <p class="muted">
+            Fragmented liquidity, uneven transparency, and narrative cycles complicate price discovery.
+            Depth and quality vary by venue.
+          </p>
+          <p class="muted">
+            Proof Of Metal prioritizes verifiable market data over commentary or promotion.
+          </p>
+        </article>
+
+        <article class="why-card">
+          <h3>2) 24/7, Token-First Trading</h3>
+          <p class="muted">
+            Trading increasingly runs on continuous digital rails across centralized and decentralized venues.
+          </p>
+          <p class="muted">
+            Proof Of Metal tracks these markets using transparent sources and standardized presentation —
+            without narrative overlays or incentive bias.
+          </p>
+        </article>
+
+        <article class="why-card">
+          <h3>3) Linking Digital Claims to Physical Assets</h3>
+          <p class="muted">
+            Real-world assets are being tokenized at increasing scale. The long-term objective is straightforward:
+          </p>
+          <ul class="why-list">
+            <li>Track digital claims tied to physical precious metals</li>
+            <li>Evaluate holdings as inventory, not just price movement</li>
+            <li>Support long-term capital preservation and generational planning</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="why-principle">
+        <div class="why-principle__label">Core Principle</div>
+        <p class="muted">
+          Market credibility increases when digital instruments are anchored to assets that can be possessed,
+          stored, and independently verified.
+        </p>
+        <p class="muted">
+          Proof Of Metal exists to narrow the distance between digital markets and physical reality.
+        </p>
+      </div>
+    </section>
 
     <!-- =========================
          COINMARKETCAP WIDGETS
@@ -270,7 +317,6 @@
       </p>
 
       <div class="grid-2">
-
         <!-- AU79 -->
         <article class="chart-card chart-card-wide">
           <div class="chart-head">
@@ -413,8 +459,8 @@
           </div>
         </article>
 
-      </div> <!-- ✅ CLOSE grid-2 -->
-    </section>
+      </div><!-- /.grid-2 -->
+    </section><!-- /#cmc -->
 
     <!-- =========================
          EXPLANATIONS
@@ -511,72 +557,8 @@
           </p>
         </article>
       </div>
-    </section>
-<div class="section-head">
-  <h2>🪙 Why Proof Of Metal Exists</h2>
-  <div class="muted">A production of Valdez Capital Holdings, LLC.</div>
-</div>
+    </section><!-- /#explain -->
 
-<p class="muted">
-  Digital markets move quickly. Transparency does not always keep pace.
-</p>
-
-<p class="muted">
-  Proof Of Metal is designed to provide clarity, observable data, and real-world grounding
-  for assets linked to physical precious metals.
-</p>
-
-<div class="why-grid">
-
-  <article class="why-card">
-    <h3>1) Market Structure Requires Discipline</h3>
-    <p class="muted">
-      Liquidity fragmentation, uneven transparency, and narrative-driven cycles
-      complicate price discovery. Depth and quality vary by venue.
-    </p>
-    <p class="muted">
-      Proof Of Metal prioritizes verifiable market data over commentary or promotion.
-    </p>
-  </article>
-
-  <article class="why-card">
-    <h3>2) 24/7, Token-First Trading</h3>
-    <p class="muted">
-      Trading increasingly occurs on continuous, digital rails across centralized
-      and decentralized venues.
-    </p>
-    <p class="muted">
-      Proof Of Metal tracks these markets using transparent sources and standardized
-      presentation — without narrative overlays or incentive bias.
-    </p>
-  </article>
-
-  <article class="why-card">
-    <h3>3) Linking Digital Claims to Physical Assets</h3>
-    <p class="muted">
-      Real-world assets are being tokenized at increasing scale.
-      The long-term objective is straightforward:
-    </p>
-    <ul class="why-list">
-      <li>Track digital claims tied to physical precious metals</li>
-      <li>Evaluate holdings as inventory, not just price movement</li>
-      <li>Support long-term capital preservation and generational planning</li>
-    </ul>
-  </article>
-
-</div>
-
-<div class="why-principle">
-  <div class="why-principle__label">Core Principle</div>
-  <p class="muted">
-    Market credibility increases when digital instruments are anchored
-    to assets that can be possessed, stored, and independently verified.
-  </p>
-  <p class="muted">
-    Proof Of Metal exists to narrow the distance between digital markets
-    and physical reality.
-  </p>
-</div>
     <!-- =========================
          KEY CONSIDERATIONS
          ========================= -->
@@ -615,7 +597,7 @@
           </p>
         </article>
       </div>
-    </section>
+    </section><!-- /#considerations -->
 
   </main>
 
@@ -649,20 +631,22 @@
 
   <!-- Site JS -->
   <script src="./app.js"></script>
+
   <!-- Chart Zoom Modal -->
-<div id="chartModal" class="chart-modal" aria-hidden="true">
-  <div class="chart-modal__backdrop" data-close="1"></div>
+  <div id="chartModal" class="chart-modal" aria-hidden="true">
+    <div class="chart-modal__backdrop" data-close="1"></div>
 
-  <div class="chart-modal__panel" role="dialog" aria-modal="true" aria-label="Expanded chart">
-    <button class="chart-modal__close" id="chartModalClose" type="button" aria-label="Close expanded chart">
-      ✕
-    </button>
+    <div class="chart-modal__panel" role="dialog" aria-modal="true" aria-label="Expanded chart">
+      <button class="chart-modal__close" id="chartModalClose" type="button" aria-label="Close expanded chart">
+        ✕
+      </button>
 
-    <div class="chart-modal__title" id="chartModalTitle">Chart</div>
-    <div class="chart-modal__body">
-      <div id="chartModalTV" class="chart-modal__tv"></div>
+      <div class="chart-modal__title" id="chartModalTitle">Chart</div>
+      <div class="chart-modal__body">
+        <div id="chartModalTV" class="chart-modal__tv"></div>
+      </div>
     </div>
   </div>
-</div>
+
 </body>
 </html>
