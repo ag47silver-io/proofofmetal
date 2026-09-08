@@ -1459,3 +1459,60 @@ const PROOF_SCORES = {
     }
 
 };
+/* =========================================================
+   SCORE CALCULATION
+========================================================= */
+
+function calculateProofScore(asset) {
+
+    if (!asset) {
+        return 0;
+    }
+
+    return (
+        asset.backing +
+        asset.redemption +
+        asset.custody +
+        asset.transparency +
+        asset.liquidity
+    );
+
+}
+
+
+function getScoreBand(score) {
+
+    if (score >= 90) {
+        return {
+            label: "Very Strong Evidence",
+            className: "score-very-strong"
+        };
+    }
+
+    if (score >= 80) {
+        return {
+            label: "Strong Evidence",
+            className: "score-strong"
+        };
+    }
+
+    if (score >= 70) {
+        return {
+            label: "Moderate Evidence",
+            className: "score-moderate"
+        };
+    }
+
+    if (score >= 60) {
+        return {
+            label: "Limited Evidence",
+            className: "score-limited"
+        };
+    }
+
+    return {
+        label: "Insufficient Evidence",
+        className: "score-insufficient"
+    };
+
+}
