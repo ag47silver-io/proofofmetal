@@ -1404,3 +1404,58 @@
   }
 
 })();
+/* =========================================================
+   PROOF SCORE DATA
+========================================================= */
+
+const PROOF_SCORES = {
+
+    PAXG: {
+        name: "PAX Gold",
+        symbol: "PAXG",
+        metal: "Gold",
+
+        backing: 30,
+        redemption: 18,
+        custody: 18,
+        transparency: 17,
+        liquidity: 5
+    },
+
+    XAUT: {
+        name: "Tether Gold",
+        symbol: "XAUT",
+        metal: "Gold",
+
+        backing: 29,
+        redemption: 17,
+        custody: 17,
+        transparency: 15,
+        liquidity: 4
+    },
+
+    KAU: {
+        name: "Kinesis Gold",
+        symbol: "KAU",
+        metal: "Gold",
+
+        backing: 27,
+        redemption: 15,
+        custody: 16,
+        transparency: 15,
+        liquidity: 5
+    },
+
+    KAG: {
+        name: "Kinesis Silver",
+        symbol: "KAG",
+        metal: "Silver",
+
+        backing: 28,
+        redemption: 15,
+        custody: 16,
+        transparency: 15,
+        liquidity: 5
+    }
+
+};
